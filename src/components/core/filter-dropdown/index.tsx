@@ -1,5 +1,5 @@
-import React, { useState, ChangeEvent, FC, useRef, useEffect } from 'react';
-import { getValueFromKeyPath } from '../../../utils/getValueFromKeyPath.ts';
+import { useState, ChangeEvent, useRef, useEffect } from 'react';
+import { Obj, getValueFromKeyPath } from '../../../utils/getValueFromKeyPath.ts';
 
 import './index.css';
 
@@ -9,7 +9,7 @@ interface AutoFilterDropdownProps<T> {
   valueChange: (selectedItem: T) => void;
 }
 
-const AutoFilterDropdown = <T>({
+const AutoFilterDropdown = <T extends Obj>({
   data = [],
   labelKeyPath,
   valueChange,
@@ -18,7 +18,7 @@ const AutoFilterDropdown = <T>({
   const [filteredData, setFilteredData] = useState<T[]>(data);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const filterRef = useRef();
+  const filterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     data.length && setFilteredData(data);
