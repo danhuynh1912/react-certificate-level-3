@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, FC } from 'react';
 import AutoFilterDropdown from '../../components/core/filter-dropdown';
 import useQuery from '../../hooks/useQuery';
 
@@ -21,7 +21,7 @@ const TestComponent: FC = () => {
   const [selectedUser2, setSelectedUser2] = useState<User | null>(null);
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
 
-  const { data: users = [] } = useQuery({
+  const { data: users = [] } = useQuery<User[], null>({
     baseUrl: 'https://jsonplaceholder.typicode.com/users',
   });
 
@@ -44,19 +44,19 @@ const TestComponent: FC = () => {
   return (
     <>
       <h3>Data sample 1:</h3>
-      <div className="flex gap-2">
+      <div className='flex gap-2'>
         <div>
-          <h2>Find user by city:</h2>
+          <h2>Find user by email:</h2>
           <AutoFilterDropdown<User>
             data={users ?? []}
-            labelKeyPath={['address', 'city']}
+            labelKey='email'
             valueChange={handleUser1Change}
           />
           {selectedUser1 && (
             <>
               <p>Selected User: {selectedUser1.name}</p>
               <br />
-              <p>City: {selectedUser1.address.city}</p>
+              <p>Email: {selectedUser1.email}</p>
             </>
           )}
         </div>
@@ -65,7 +65,7 @@ const TestComponent: FC = () => {
           <h2>Find user by name:</h2>
           <AutoFilterDropdown<User>
             data={users ?? []}
-            labelKeyPath={['name']}
+            labelKey='name'
             valueChange={handleUser2Change}
           />
           {selectedUser2 && <p>Selected User: {selectedUser2.name}</p>}
@@ -79,9 +79,9 @@ const TestComponent: FC = () => {
       <h3>Data sample 2:</h3>
       <div>
         <h2>Select todo:</h2>
-        <AutoFilterDropdown<User>
+        <AutoFilterDropdown<Todo>
           data={todos?.slice(0, 10) ?? []}
-          labelKeyPath={['title']}
+          labelKey='title'
           valueChange={handleTodoChange}
         />
         {selectedTodo && <p>Selected Todo: {selectedTodo.title}</p>}

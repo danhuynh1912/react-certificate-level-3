@@ -1,17 +1,16 @@
-import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
-import { Obj, getValueFromKeyPath } from '../../../utils/getValueFromKeyPath.ts';
+import { useState, ChangeEvent, useRef, useEffect } from 'react';
 
 import './index.css';
 
-interface AutoFilterDropdownProps<T> {
+export interface AutoFilterDropdownProps<T> {
   data: T[];
-  labelKeyPath: string[];
+  labelKey: keyof T;
   valueChange: (selectedItem: T) => void;
 }
 
-const AutoFilterDropdown = <T extends Obj>({
+const AutoFilterDropdown = <T extends object>({
   data = [],
-  labelKeyPath,
+  labelKey,
   valueChange,
 }: AutoFilterDropdownProps<T>) => {
   const [filter, setFilter] = useState<string>('');
@@ -46,38 +45,33 @@ const AutoFilterDropdown = <T extends Obj>({
     setFilter(searchTerm);
 
     const newFilteredData = data.filter((item) =>
-      String(getValueFromKeyPath(item, labelKeyPath))
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
+      String(item[labelKey]).toLowerCase().includes(searchTerm.toLowerCase()),
     );
     setFilteredData(newFilteredData);
   };
 
   const handleSelect = (item: T) => {
     valueChange(item);
-    setFilter(getValueFromKeyPath(item, labelKeyPath));
+    setFilter(item[labelKey] as string);
 
     setFilteredData([item]);
     setIsOpen(false);
   };
 
   return (
-    <div className="dropdown" ref={filterRef}>
+    <div className='dropdown' ref={filterRef}>
       <input
-        type="text"
+        type='text'
         value={filter}
         onChange={handleFilterChange}
         onFocus={() => setIsOpen(true)}
-        placeholder="Search..."
+        placeholder='Search...'
       />
       {isOpen && filteredData.length > 0 && (
-        <div className="dropdown-menu">
+        <div className='dropdown-menu'>
           {filteredData.map((item, index) => (
             <p key={index} onClick={() => handleSelect(item)}>
-              {highlightMatch(
-                String(getValueFromKeyPath(item, labelKeyPath)),
-                filter
-              )}
+              {highlightMatch(String(item[labelKey]), filter)}
             </p>
           ))}
         </div>
@@ -95,7 +89,7 @@ const highlightMatch = (text: string, term: string) => {
           <strong key={index}>{part}</strong>
         ) : (
           part
-        )
+        ),
       )}
     </>
   );

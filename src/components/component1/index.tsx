@@ -1,7 +1,7 @@
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 const Component1 = () => {
-  const [value, setValue] = useLocalStorage('commonKey', 'initValue');
+  const [value, setValue] = useLocalStorage('commonKey');
 
   return (
     <div>
