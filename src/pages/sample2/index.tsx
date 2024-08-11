@@ -36,36 +36,37 @@ const Sample2 = () => {
 
   const selectImage = (url: string) => {
     setImages((prevState) =>
-      prevState.map((img) => ({ ...img, isActive: img.url === url }))
+      prevState.map((img) => ({ ...img, isActive: img.url === url })),
     );
   };
 
   return (
     <>
-      <p>Example 1:</p>
+      <h2>2 different case of Dialog component:</h2>
+      <p>Case 1:</p>
       <Dialog>
         <Dialog.Trigger>
           <button>Open dog images modal</button>
         </Dialog.Trigger>
         <Dialog.Content modal>
           <Dialog.Header>
-            <p>Dog list</p>
+            <p>Dog list modal</p>
           </Dialog.Header>
           {isLoading ? (
             <p>Loading...</p>
           ) : activeImage ? (
-            <img className="active-image" src={activeImage.url} alt="active" />
+            <img className='active-image' src={activeImage.url} alt='active' />
           ) : null}
           <Dialog.Footer>
-            <div className="image-list">
+            <div className='image-list'>
               {images.map((img) => (
                 <img
                   key={img.url}
-                  role="button"
+                  role='button'
                   onClick={() => selectImage(img.url)}
                   height={100}
                   src={img.url}
-                  alt="dog-img"
+                  alt='dog-img'
                 />
               ))}
             </div>
@@ -73,7 +74,7 @@ const Sample2 = () => {
         </Dialog.Content>
       </Dialog>
 
-      <p className="mt-2">Example 2:</p>
+      <p className='mt-2'>Case 2:</p>
       <Dialog>
         <Dialog.Trigger>
           <button>Open dialog</button>

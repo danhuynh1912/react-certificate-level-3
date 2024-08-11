@@ -6,7 +6,7 @@ const Component1 = () => {
   return (
     <div>
       <span>
-        Component 1 (value of key: 'commonKey'):
+        Component 1 (subscribe key 'commonKey'):
         <span>
           {' '}
           <b>{value}</b>{' '}

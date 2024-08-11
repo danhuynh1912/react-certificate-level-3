@@ -1,5 +1,7 @@
 import { useState, useCallback, FC } from 'react';
+
 import AutoFilterDropdown from '../../components/core/filter-dropdown';
+
 import useQuery from '../../hooks/useQuery';
 
 // Define user type
@@ -16,7 +18,7 @@ interface Todo {
   completed: boolean;
 }
 
-const TestComponent: FC = () => {
+const Sample3: FC = () => {
   const [selectedUser1, setSelectedUser1] = useState<User | null>(null);
   const [selectedUser2, setSelectedUser2] = useState<User | null>(null);
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
@@ -90,4 +92,4 @@ const TestComponent: FC = () => {
   );
 };
 
-export default TestComponent;
+export default Sample3;
