@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useRef, useEffect } from 'react';
+import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
 import { Obj, getValueFromKeyPath } from '../../../utils/getValueFromKeyPath.ts';
 
 import './index.css';
